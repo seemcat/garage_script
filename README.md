@@ -1,2 +1,2 @@
 # garage_script
-The best curriculum you'll never get.
+The best curriculum you'll never get in school.
