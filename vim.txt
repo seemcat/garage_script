@@ -1,0 +1,49 @@
+Vim is a text editor available in most computers. It's one of the best text editors because it encourages programmers to think twice before coding by having two modes; insert mode to start typing and normal mode to move around. Because you can only use the keyboard, Vim also advocates coding efficiency. Below are the Vim commands that will help you get started.
+
+INSERT:
+i start typing before your cursor
+a start typing after your cursor
+I start typing at the beginning of the line
+A start typing at the end of the line
+o start typing in a new line after your cursor
+O start typing in a new line before your cursor
+---------------------------------------------------------------
+
+NAVIGATE:
+gg takes your cursor to the beginning of the file
+G takes your cursorsor to the end of the file
+$ takes your cursor to the end of the line
+0 takes your cursor to the beginning of the line
+{ takes your cursor to the next space of a paragraph in an upward direction
+} takes your cursor to the next space of a paragraph in a downward direction
+w takes your cursor to the next word to the right
+W takes your cursor to the next word separated by a space to the right
+b takes your cursor to the next word to the left
+B takes your cursor to the next word separated by a space to the left
+---------------------------------------------------------------
+
+SEARCH:
+fj lets you find the closest j to the right of the line that you're on
+FM lets you find the closest M to the left of the line that you're on
+/hi lets you find hi throughout the file
+n lets you navigate rightwards through each hi that was found
+N lets you navigate through each hi that was found 
+# lets you find the word that your cursor is on throughout the file and navigate leftwards through each found word
+* lets you find the word that your cursor is on throughout the file and navigate rightwards through each found word
+---------------------------------------------------------------
+
+EDIT:
+d deletes something. That something is usually one of our navigation demands
+df) deletes everything up until ), including )
+dt) deletes everything up until ), excluding )
+5dw deletes 5 words. Mind you, it also treats symbols such as ! and ( and , and etc. as words
+dd deletes the entire line that your cursor is on
+p pastes to the right of the cursor. If you copied an entire line then it would get pasted on the line before the cursor.
+P pastes to the left of the cursor. If you copied an entire line then it would get pasted on the line before the cursor.
+di deletes within specific characters.
+dit deletes whatever is within the tag that your cursor is currently on.
+di( deletes whatever is within the parenthesis that your cursor is currently on.
+dat deletes the entire tag; everything that is in the tag and also the opening and closing tags themselves.
+ci is like di but on steroids; it deletes within specic characters and automatically goes into insert mode.
+ci' deletes whatever is inside the closest ' and automatically puts you into insert mode.
+cit deletes whatever is inside the closest tag and automatically puts you into insert mode.

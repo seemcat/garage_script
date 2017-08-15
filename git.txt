@@ -1,0 +1,27 @@
+Git is a version control system; it allows us to manage our code and collaborate with others on projects. Below is the git terminology:
+
+    master - the repository’s main branch. Depending on the work flow it is the one people work on or the one where the integration happens
+
+    clone - copies an existing git repository, normally from some remote location to your local environment.
+
+    commit - submitting files to the repository (the local one).
+
+    fetch or pull - is like “update” or “get latest” in other VCS. The difference between fetch and pull is that pull combines both, fetching the latest code from a remote repo as well as performs the merging. We use this to retrieve new work done by other people. Fetching from a repository grabs all the new remote-tracking branches without merging those changes into your own branches.
+
+    push - is used to submit the code to a remote repository
+
+    remote - these are “remote” locations of your repository, normally on some central server.
+
+    head - is a reference to the node to which our working space of the repository currently points.
+
+    branch - is just like in other VCS with the difference that a branch in Git is actually nothing more special than a particular label on a given node. It is not a physical copy of the files as in other popular VCS.
+
+-----------------------------------------------------------
+The process of using git:
+  0. git clone (url) to grab a complete copy of another user's repository.
+  1. Create/modify a file.
+  2. git add (file)
+  3. git commit -m 'describe the changes you made'
+  4. git fetch (remoteName) fetches updates made to a remote repository
+  5. git rebase origin/master will merge in the requested branch (origin/master in this case) and apply the commits that you have made locally to the top of the history without creating a merge commit. 
+  6. git push remoteName branchName

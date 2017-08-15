@@ -1,0 +1,11 @@
+Unix commands allows us to do some cool stuff with our computer on the terminal. Below are the most useful commands we use daily.
+
+ls list all of the files in the current directory
+cd .. move back one directory
+cd tempdir change directory to tempdir
+mkdir garaga_script make a directory called garaga_script
+rmdir -rf remove directory even if it's not empty
+cp unix.txt garaga_script copy file into directory
+rm unix.txt remove file
+mv unix.txt unixNotes.txt move or rename files
+man ls online manual about a command
