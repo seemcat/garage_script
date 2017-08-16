@@ -1,16 +1,19 @@
-// A function that will write everyone's name except for mine in a new file.
+// A program that will display everyone's name (excluding mine) into a web application.
+const express = require('express');
+const app = express();
 const fs = require('fs');
 
-const printName = (err, data) => {
-  let names = '';
-  data.forEach((name) => {
-    if(name !== 'mc'){
-      names = names + '\n' + name + '\n';
-    }
-  });
-  fs.writeFile('/home/mc/garage_script/fsExpressResult.txt', names, (err) => {
-    console.log('Error: ', err);
-  });
-}
+app.listen(3002);
 
-fs.readdir('/home', printName);
+app.get('/*', (req, res) => {
+  const printName = (err, data) => {
+    let names = '';
+    data.forEach((name) => {
+      if(name !== 'mc'){
+        names = names + '\n' + name + '\n';
+      }
+    });
+    res.send(names);
+  }
+  fs.readdir('/home', printName);
+});
