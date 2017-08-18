@@ -8,7 +8,12 @@
     Name: <input type = 'text' id = 'name'/>
     Comment: <input type = 'text' id = 'comment'/>
     <input type = 'submit' id = 'button'>
+    <div>
+      <pre id = 'messages'/>
+    </div>
     <script>
+
+      /* Submit name & comment text; send to a file */
       const button = document.getElementById('button');
       button.onclick = () => {
         const name = document.getElementById('name').value;
@@ -17,6 +22,21 @@
         xhttp.open('GET', `/submit?name=${name}&comment=${comment}`);
         xhttp.send();
       }
+
+      /* Get chat file every second & display */
+      const getChatFile = () => {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/inbox.txt');
+        xhttp.onreadystatechange = () => {
+          if(xhttp.responseText){
+            const content = document.getElementById('messages');
+            content.innerHTML = xhttp.responseText;
+          }
+        }
+        xhttp.send();
+      }
+      window.setInterval(getChatFile, 1000);
+
     </script>
   </body>
 </html>
