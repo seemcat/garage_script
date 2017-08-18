@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    Name: <input type = 'text' id = 'a1'/>
+    Comment: <input type = 'text' id = 'a2'/>
+    <input type = 'submit' id = 'b1'>
+    <div>
+      <pre id = 'messages'/>
+      </div>
+      <script>
+        /* Submit name & comment text; send to a file */
+        const button = document.getElementById('b1');
+        button.onclick = () => {
+          const name = document.getElementById('a1').value;
+          const comment = document.getElementById('a2').value;
+          const xhttp = new XMLHttpRequest();
+          xhttp.open('POST', '/submit');
+          xhttp.setRequestHeader('content-type', 'application/json');
+          xhttp.send(JSON.stringify({
+            name,
+            comment
+          }));
+        }
+
+        /* Get chat file every second & display */
+        const getInboxFile = () => {
+          const xhttp = new XMLHttpRequest();
+          xhttp.open('GET', '/inbox.txt');
+          xhttp.onreadystatechange = () => {
+            if(xhttp.responseText){
+              const content = document.getElementById('messages');
+              content.innerHTML = xhttp.responseText;
+            }
+          }
+          xhttp.send();
+        }
+        window.setInterval(getInboxFile, 1000);
+      </script>
+  </body>
+</html>
