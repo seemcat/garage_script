@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    Name: <input type = 'text' id = 'a1'/>
+    Message: <input type = 'text' id = 'a2'/>
+    <input type = 'submit' id = 'b1'/>
+    <br />
+    Selfie: <input id = 'b2' type = 'submit'/>
+    <br />
+    <div>
+      VIEW PIC: https://vimgirl.com/pics/name.png
+      <br />
+      VIEW MEME: https://vimgirl.com/memes/name.png
+      <pre id = 'messages'></pre>
+      <video id = 'v1'></video>
+      <canvas width = 400 height = 400 id = 'c1'></canvas>
+    </div>
+    <script>
+
+      /* Submit name & comment text; send to a file */
+      const button = document.getElementById('b1');
+      button.onclick = () => {
+        const name = document.getElementById('a1').value;
+        const comment = document.getElementById('a2').value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '/submit');
+        xhttp.setRequestHeader('content-type', 'application/json');
+        xhttp.send(JSON.stringify({
+          name,
+          comment
+        }));
+      }
+
+      /* Get chat file every second & display */
+      const getInboxFile = () => {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/inbox.txt');
+        xhttp.onreadystatechange = () => {
+          if(xhttp.responseText){
+            const content = document.getElementById('messages');
+            content.innerHTML = xhttp.responseText;
+          }
+        }
+        xhttp.send();
+      }
+
+      /* Camera */
+      const video = document.getElementById('v1');
+      navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false
+      }).then((mediaStream) => {
+        console.log('hi');
+        video.srcObject = mediaStream;
+        video.play();
+      }).catch((err) => {
+        console.log(err);
+      });;
+
+      /* Take a picture */
+      const button2 = document.getElementById('b2');
+      button2.onclick = () => {
+        const name = document.getElementById('a1').value;
+        const comment = document.getElementById('a2').value;
+        const canvas = document.getElementById('c1');
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0);
+        const dataURL = canvas.toDataURL('image/png');
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '/pics');
+        xhttp.setRequestHeader('content-type', 'application/json');
+        xhttp.send(JSON.stringify({
+          canvas: dataURL,
+          name,
+          comment
+        }));
+      }
+      window.setInterval(getInboxFile, 1000);
+
+    </script>
+  </body>
+</html>
