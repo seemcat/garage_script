@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <meta charset="UTF-8">
     <title></title>
   </head>
   <body>
     Name: <input type = 'text' id = 'name'/>
-    Comment: <input type = 'text' id = 'comment'/>
-    <input type = 'submit' id = 'button'>
-    <script>
-      const button = document.getElementById('button');
-      button.onclick = () => {
-        const name = document.getElementById('name').value;
-        const comment = document.getElementById('comment').value;
-        const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', `/submit?name=${name}&comment=${comment}`);
-        xhttp.send();
-      }
-    </script>
+    Message: <input type = 'text' id = 'message'/>
+    <input type = 'submit' id = 'submitButton'/>
+    <br />
+    Selfie: <input type = 'submit' id = 'takePicButton'/>
+    <br />
+    <div>
+      VIEW PIC: https://vimgirl.com/pics/name.png
+      <br />
+      VIEW MEME: https://vimgirl.com/memes/name.png
+      <pre id = 'messages'></pre>
+      <video id = 'video'></video>
+      <canvas width = 400 height = 400 id = 'canvas'></canvas>
+    </div>
+    <script src = 'app.js'></script>
   </body>
 </html>
