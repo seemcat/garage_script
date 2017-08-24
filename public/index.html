@@ -5,16 +5,16 @@
     <title></title>
   </head>
   <body>
-    Name: <input type = 'text' id = 'a1'/>
-    Comment: <input type = 'text' id = 'a2'/>
-    <input type = 'submit' id = 'b1'>
+    Name: <input type = 'text' id = 'name'/>
+    Comment: <input type = 'text' id = 'comment'/>
+    <input type = 'submit' id = 'button'>
     <script>
-      const button = document.getElementById('b1');
+      const button = document.getElementById('button');
       button.onclick = () => {
-        const name = document.getElementById('a1').value;
-        const comment = document.getElementById('a2').value;
+        const name = document.getElementById('name').value;
+        const comment = document.getElementById('comment').value;
         const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', `/XMLHttpRequest?a1=${name}&a2=${comment}`);
+        xhttp.open('GET', `/submit?name=${name}&comment=${comment}`);
         xhttp.send();
       }
     </script>
