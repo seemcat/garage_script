@@ -1,13 +1,12 @@
 /* Get memes file every second & display */
 const getMemesFile = () => {
   $.get('/memes', (data) => {
-    const content = $('#memes').val();
+    const content = $('#memes');
     let memes = '';
-    console.log('data: ', data);
     data.forEach((e) => {
-      memes = memes + `<img src = "${e}" height = "50" width = "42">`;
+      memes = memes + `<img src = "https://vimgirl.com/memes/${e}" height = "200" width = "200">`;
     });
-    content.innerHTML = memes;
+    content.html(memes);
   });
 }
 window.setInterval(getMemesFile, 1000);
