@@ -1,14 +1,40 @@
 /* Get memes file every second & display */
 const getMemesFile = () => {
-  $.get('/memes', (data) => {
-    const content = $('#memes');
-    let memes = '';
-    data.forEach((e) => {
-      memes = memes + `<img src = "https://vimgirl.com/memes/${e}" height = "200" width = "200">`;
-    });
-    content.html(memes);
-  });
+  const xhttp = new XMLHttpRequest();
+  xhttp.open('GET', '/memes');
+  //  const cacheBust = Math.floor(Math.random() * 1000000);
+  const canvas = $('#memes')[0];
+  const context = canvas.getContext('2d');
+
+  // load the images
+  const loadImages = (sources, callback) => {
+    var images = [];
+    var loadedImages = 0;
+    var numImages = sources.length;
+
+    sources.forEach((e) => {
+      var img = new Image;
+      img.src = e;
+      img.onload = () => {
+        if(++loadedImages >= numImages){
+          callback(images);
+        }
+      }
+      images.push(img);
+    })
+  }
+
+  // load the images once the user clicks submit
+  xhttp.onreadystatechange = () => {
+    if(xhttp.responseText){
+      loadImages((xhttp.responseText), (images) => {
+        context.drawImage(images, 0, 0);
+      });
+    }
+  }
+  xhttp.send();
 }
+
 window.setInterval(getMemesFile, 1000);
 
 /* Camera */

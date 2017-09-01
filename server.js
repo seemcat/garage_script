@@ -1,6 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');
+const util = require('util');
+const mime = require('mime');
 const app = express();
 const gm = require('gm');
 
@@ -19,12 +21,22 @@ app.post('/memes', (req, res) => {
       console.log('Meme Error: ', err);
     });
   });
+  res.send('Meme success!');
 });
 
 // Listen to a GET request from the take photo button
 app.get('/memes', (req, res) => {
+  const base64Image = (src) => {
+    var data = fs.readFileSync(`/home/mc/garage_script/public/memes/${src}`).toString('base64');
+    return util.format('data:%s;base64,%s', mime.lookup(`/home/mc/garage_script/public/memes/${src}`), data);
+  }
+
   const getMemeNames = (err, data) => {
-    res.send(data);
+    let arrayOfDataUri = [];
+    data.forEach((e) => {
+      arrayOfDataUri.push(base64Image(e));
+    });
+    res.send(arrayOfDataUri);
   }
   fs.readdir('/home/mc/garage_script/public/memes', getMemeNames);
 });
