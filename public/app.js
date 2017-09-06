@@ -1,38 +1,24 @@
 /* Get memes file every second & display */
 const getMemesFile = () => {
-  const xhttp = new XMLHttpRequest();
-  xhttp.open('GET', '/memes');
-  //  const cacheBust = Math.floor(Math.random() * 1000000);
-  const canvas = $('#memes')[0];
-  const context = canvas.getContext('2d');
-
-  // load the images
-  const loadImages = (sources, callback) => {
-    var images = [];
-    var loadedImages = 0;
-    var numImages = sources.length;
-
-    sources.forEach((e) => {
-      var img = new Image;
-      img.src = e;
-      img.onload = () => {
-        if(++loadedImages >= numImages){
-          callback(images);
-        }
-      }
-      images.push(img);
-    })
-  }
-
-  // load the images once the user clicks submit
-  xhttp.onreadystatechange = () => {
-    if(xhttp.responseText){
-      loadImages((xhttp.responseText), (images) => {
-        context.drawImage(images, 0, 0);
+  $.get('/memes', (srcData) => {
+    const content = $('#memes');
+    let memes = '';
+    srcData.forEach((e) => {
+      /* POST request to get img data */
+      $.ajax({
+        type: 'POST',
+        url: '/memeData',
+        data: JSON.stringify({
+          fileName: e
+        }),
+        success: (data) => {
+          memes = memes + `<img src = '${data}' height = '200' width = '200'><br />`;
+          content.html(memes);
+        },
+        contentType: 'application/json'
       });
-    }
-  }
-  xhttp.send();
+    });
+  });
 }
 
 window.setInterval(getMemesFile, 1000);

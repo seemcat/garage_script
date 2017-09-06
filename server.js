@@ -24,19 +24,19 @@ app.post('/memes', (req, res) => {
   res.send('Meme success!');
 });
 
-// Listen to a GET request from the take photo button
-app.get('/memes', (req, res) => {
+/* Get meme image data every second */
+app.post('/memeData', (req, res) => {
   const base64Image = (src) => {
     var data = fs.readFileSync(`/home/mc/garage_script/public/memes/${src}`).toString('base64');
     return util.format('data:%s;base64,%s', mime.lookup(`/home/mc/garage_script/public/memes/${src}`), data);
-  }
+  };
+  res.send(base64Image(req.body.fileName));
+});
 
+/* Get meme names every second */
+app.get('/memes', (req, res) => {
   const getMemeNames = (err, data) => {
-    let arrayOfDataUri = [];
-    data.forEach((e) => {
-      arrayOfDataUri.push(base64Image(e));
-    });
-    res.send(arrayOfDataUri);
+    res.send(data);
   }
   fs.readdir('/home/mc/garage_script/public/memes', getMemeNames);
 });
