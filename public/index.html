@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <meta charset="UTF-8">
     <title></title>
   </head>
@@ -9,57 +10,6 @@
     Errand: <input type = 'text' id = 'errand'/>
     <input type = 'submit' id = 'submitErrand'>
     <pre id = 'toDoList'/>
-    <script>
-
-const reducers = Redux.combineReducers({
-  list: (state = { errand: [] }, action) => {
-    if(action.type === 'add'){
-      state.errand.push(action.errand);
-      return Object.assign({}, state);
-    } else if(action.type === 'remove'){
-      return Object.assign({}, state);
-    } else {
-      return Object.assign({}, state);
-    }
-  }
-});
-
-const store = Redux.createStore(reducers);
-
-const button = document.getElementById('submitErrand');
-
-button.onclick = () => {
-  const errand = document.getElementById('errand').value;
-  /* dispatch add event */
-  store.dispatch({
-    type: 'add',
-    errand
-  });
-  const list = document.getElementById('toDoList');
-  const listOfErrands = store.getState().list.errand;
-  let listToDisplay = '';
-  listOfErrands.forEach((e) => {
-    listToDisplay = listToDisplay + `<text onclick = remove("${e}")>${e}</text> \n`;
-  });
-  list.innerHTML = listToDisplay;
-};
-
-const remove = (errand) => {
-  const listOfErrands = store.getState().list.errand;
-  listOfErrands.splice(listOfErrands.indexOf(errand), 1);
-  /* dispatch remove event */
-  store.dispatch({
-    type: 'remove',
-    errands: listOfErrands
-  });
-  const list = document.getElementById('toDoList');
-  const newListOfErrands = store.getState().list.errand;
-  let listToDisplay = '';
-  newListOfErrands.forEach((e) => {
-    listToDisplay = listToDisplay + `<text onclick = remove("${e}")>${e}</text> \n`;
-  });
-  list.innerHTML = listToDisplay;
-};
-    </script>
+    <script src = 'app.js'></script>
   </body>
 </html>
