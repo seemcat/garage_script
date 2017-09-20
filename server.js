@@ -1,11 +1,19 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
+const bodyParser = require('body-parser');
 
-app.listen(3002);
+app.listen(3000);
 app.use(express.static('public'));
+app.use(bodyParser.json({}));
 
-app.get('/submit', (req, res) => {
-  fs.appendFile('/home/mc/garage_script/public/inbox.txt', `\n Name: ${req.query.name} Comment: ${req.query.comment} \n`);
-  res.send('Your comment has been received.');
+let numOfTickets = 100;
+
+app.post('/buyTickets', (req, res) => {
+  numOfTickets = numOfTickets - req.body.MBTicketsPurchased;
+  res.send(numOfTickets.toString());
+});
+
+app.get('/ticketsLeft', (req, res) => {
+  res.send(numOfTickets.toString());
 });

@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <meta charset="UTF-8">
     <title></title>
   </head>
   <body>
-    Name: <input type = 'text' id = 'name'/>
-    Comment: <input type = 'text' id = 'comment'/>
-    <input type = 'submit' id = 'button'>
-    <script>
-      const button = document.getElementById('button');
-      button.onclick = () => {
-        const name = document.getElementById('name').value;
-        const comment = document.getElementById('comment').value;
-        const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', `/submit?name=${name}&comment=${comment}`);
-        xhttp.send();
-      }
-    </script>
+    <script src = 'https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js'></script>
+    <div>
+      <center>
+        <h1><pre id = 'numOfMBTicketsLeft'></pre>
+          MARICRIS TICKETS LEFT
+        </h1>
+        # of tickets: <input type = 'text' id = 'numOfMBTickets'/><br />
+        <br />
+        <input type = 'submit' value = 'BUY' id = 'buyMBTickets'><br />
+
+        <h1><pre id = 'numOfSZTicketsLeft'></pre>
+          SONG TICKETS LEFT
+        </h1>
+        # of tickets: <input type = 'text' id = 'numOfSZTickets'/><br />
+        <br />
+        <input type = 'submit' value = 'BUY' id = 'buySZTickets'>
+
+    </div>
+    <script src = 'app.js'></script>
   </body>
 </html>
