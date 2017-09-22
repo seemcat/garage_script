@@ -1,11 +1,33 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
+const bodyParser = require('body-parser');
 
-app.listen(3002);
+app.listen(3000);
 app.use(express.static('public'));
+app.use(bodyParser.json({}));
 
-app.get('/submit', (req, res) => {
-  fs.appendFile('/home/mc/garage_script/public/inbox.txt', `\n Name: ${req.query.name} Comment: ${req.query.comment} \n`);
-  res.send('Your comment has been received.');
+let position = {
+  top: 0,
+  left: 0
+};
+
+app.post('/move', (req, res) => {
+  const direction = req.body.direction;
+
+  if (direction === 'up'){
+    position['top'] -= 10;
+  } else if (direction === 'down'){
+    position['top'] += 10;
+  } else if (direction === 'left'){
+    position['left'] -= 10;
+  } else if (direction === 'right'){
+    position['left'] += 10;
+  }
+
+  res.send(position);
+});
+
+app.get('/imgPos', (req, res) => {
+  res.send(position);
 });
