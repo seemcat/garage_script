@@ -1,11 +1,11 @@
-$('#buyMBTickets').click(() => {
-  const MBTicketsPurchased = $('#numOfMBTickets').val();
+/* up button */
+$('#up').click(() => {
   $.ajax({
     type: 'POST',
-    url: '/buyTickets',
+    url: '/move',
     contentType: 'application/json',
     data: JSON.stringify({
-      MBTicketsPurchased
+      direction: 'up'
     }),
     success: (data) => {
       console.log('Successful POST Request: ', data);
@@ -13,26 +13,60 @@ $('#buyMBTickets').click(() => {
   });
 });
 
-$('#buySZTickets').click(() => {
-  const SZTicketsPurchased = $('#numOfSZTickets').val();
-  $.get(`http://sz.llip.life/buy?amnt=${SZTicketsPurchased}`, (data) => {
-    $('numOfSZTicketsLeft').html(data);
+/* down button */
+$('#down').click(() => {
+  $.ajax({
+    type: 'POST',
+    url: '/move',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      direction: 'down'
+    }),
+    success: (data) => {
+      console.log('Successful POST Request: ', data);
+    }
   });
 });
 
-const getNumOfSZTickets = () => {
-  $.get('http://sz.llip.life/tickets', (data) => {
-    $('#numOfSZTicketsLeft').html(data);
+/* left button */
+$('#left').click(() => {
+  $.ajax({
+    type: 'POST',
+    url: '/move',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      direction: 'left'
+    }),
+    success: (data) => {
+      console.log('Successful POST Request: ', data);
+    }
+  });
+});
+
+/* right button */
+$('#right').click(() => {
+  $.ajax({
+    type: 'POST',
+    url: '/move',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      direction: 'right'
+    }),
+    success: (data) => {
+      console.log('Successful POST Request: ', data);
+    }
+  });
+});
+
+/* get img position */
+const getImgPos = () => {
+  $.get('/imgPos', (data) => {
+    $('#kona').css({ 
+      marginTop: data.top,
+      marginLeft: data.left
+    });
   });
 }
 
-window.setInterval(getNumOfSZTickets, 500);
+window.setInterval(getImgPos, 500);
 
-/* Get chat file every second & display */
-const getNumOfMBTickets = () => {
-  $.get('/ticketsLeft', (data) => {
-    $('#numOfMBTicketsLeft').html(data);
-  });
-}
-
-window.setInterval(getNumOfMBTickets, 500);

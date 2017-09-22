@@ -7,13 +7,27 @@ app.listen(3000);
 app.use(express.static('public'));
 app.use(bodyParser.json({}));
 
-let numOfTickets = 100;
+let position = {
+  top: 0,
+  left: 0
+};
 
-app.post('/buyTickets', (req, res) => {
-  numOfTickets = numOfTickets - req.body.MBTicketsPurchased;
-  res.send(numOfTickets.toString());
+app.post('/move', (req, res) => {
+  const direction = req.body.direction;
+
+  if (direction === 'up'){
+    position['top'] -= 10;
+  } else if (direction === 'down'){
+    position['top'] += 10;
+  } else if (direction === 'left'){
+    position['left'] -= 10;
+  } else if (direction === 'right'){
+    position['left'] += 10;
+  }
+
+  res.send(position);
 });
 
-app.get('/ticketsLeft', (req, res) => {
-  res.send(numOfTickets.toString());
+app.get('/imgPos', (req, res) => {
+  res.send(position);
 });
