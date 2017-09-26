@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <meta charset="UTF-8">
     <title></title>
   </head>
   <body>
-    Name: <input type = 'text' id = 'name'/>
-    Comment: <input type = 'text' id = 'comment'/>
-    <input type = 'submit' id = 'button'>
-    <script>
-      const button = document.getElementById('button');
-      button.onclick = () => {
-        const name = document.getElementById('name').value;
-        const comment = document.getElementById('comment').value;
-        const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', `/submit?name=${name}&comment=${comment}`);
-        xhttp.send();
-      }
-    </script>
+    <div id = 'root'/>
+      <script type = 'text/babel'>
+
+/* simple
+const Name = (props) => {
+  return(<h1> { props.firstName } </h1>);
+}
+
+ReactDOM.render(<Name firstName = 'Maricris'/>, document.getElementById('root')); */
+
+/* complicated */
+        class Person extends React.component({
+          constructor(props){
+            super(props);
+            this.state = {
+              name: props.name,
+              ethnicity: props.ethnicity,
+              age: props.age,
+              bootcamp: 'Garage Script'
+            }
+          };
+
+          render(props){
+            return <h1> { props.name } { props.ethnicity } { props.age } { props.bootcamp } </h1>
+          };
+        });
+
+        ReactDOM.render(<Person name = 'Randy' ethnicity = 'Filipino' age = '23' {this.state.bootcamp}/>, document.getElementById('root'));
+      </script>
   </body>
 </html>
